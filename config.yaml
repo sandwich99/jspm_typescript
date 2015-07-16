@@ -1,0 +1,44 @@
+# config.yaml
+---
+
+route: '/api'
+proxyOptions: &proxyOptions
+  changeOrigin: true
+  target: "http://example.com/endpoint" # 代理服务器的路径
+
+path:
+  output: "temp"
+  release: "build"
+  demo: "app/**/demo*/*"
+  scss: "app/**/*.scss"
+  jade: "app/**/*.jade"
+  ts: "app/**/*.ts"
+
+
+browserSync: &browserSync
+  files:
+    - "public/**"
+    - "source/**"
+  watchOptions:
+    debounceDelay: 300
+  server:
+    baseDir: "./build" # temp 路径
+    index: "index.html"
+    routes:
+      "/config.js": "./config.js"
+      "/jspm_packages": "./jspm_packages/"
+      "/source": "./source/"
+    middleware: []
+  # startPath: "/"
+  # host: "127.0.0.1"
+  port: 3000
+  open: false
+  # notify: false
+  # online: false
+  # tunnel: false
+  # tunnel: "jspm-angular-demo"
+  # logLevel: "info"
+  # logPrefix: "jspm-angular-demo"
+  # logConnections: false
+  # logFileChanges: false
+

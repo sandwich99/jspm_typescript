@@ -1,0 +1,46 @@
+{
+  "name": "ts",
+  "version": "0.0.1",
+  "description": "typescript project 模板",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "typescript",
+    "angular",
+    "boilerplate"
+  ],
+  "author": "de",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.7.13",
+    "del": "^1.2.0",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-cached": "^1.1.0",
+    "gulp-changed": "^1.2.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-filter": "^2.0.2",
+    "gulp-if": "^1.2.5",
+    "gulp-inject": "^1.3.1",
+    "gulp-insert": "^0.4.0",
+    "gulp-jade": "^1.0.1",
+    "gulp-livereload": "^3.8.0",
+    "gulp-newer": "^0.5.1",
+    "gulp-ng-annotate": "^1.0.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-sass": "^2.0.3",
+    "gulp-typescript": "^2.7.8",
+    "gulp-watch": "^4.3.1",
+    "http-proxy-middleware": "^0.2.0",
+    "jade": "^1.11.0",
+    "js-yaml": "^3.3.1",
+    "lodash": "^3.10.0",
+    "minimist": "^1.1.1",
+    "ntypescript": "^1.201507152343.1",
+    "run-sequence": "^1.1.1",
+    "vinyl-paths": "^1.0.0"
+  },
+  "dependencies": {}
+}
