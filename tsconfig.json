@@ -1,0 +1,22 @@
+{
+    "version": "1.5.0",
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "declaration": false,
+        "noImplicitAny": true,
+		"sourceMap": true,
+        "removeComments": true,
+        "noLib": false,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+        "outDir": "temp"
+    },
+    "filesGlob": [
+        "typings/**/*.d.ts",
+        "./app/**/*.ts",
+        "!./node_modules/**",
+        "!./dist/**",
+        "!./temp/**"
+    ]
+}
