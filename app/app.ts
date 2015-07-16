@@ -1,6 +1,4 @@
-/// <reference path="../typings/angularjs/angular.d.ts" />
-
-import {core} from "./core/core";
+import core from "./core/core";
 
 
 
