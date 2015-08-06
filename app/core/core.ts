@@ -1,4 +1,4 @@
-
+import {Table} from "component/index";
 
 export default function core (){
 

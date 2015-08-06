@@ -32,15 +32,25 @@
     "gulp-plumber": "^1.0.1",
     "gulp-sass": "^2.0.3",
     "gulp-typescript": "^2.7.8",
+    "gulp-util": "^3.0.6",
     "gulp-watch": "^4.3.1",
     "http-proxy-middleware": "^0.2.0",
     "jade": "^1.11.0",
     "js-yaml": "^3.3.1",
     "lodash": "^3.10.0",
+    "lodash.defaults": "^3.1.2",
     "minimist": "^1.1.1",
-    "ntypescript": "^1.201507152343.1",
     "run-sequence": "^1.1.1",
+    "through2": "^2.0.0",
+    "typescript": "^1.5.3",
     "vinyl-paths": "^1.0.0"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "jspm": {
+    "directories": {},
+    "dependencies": {
+      "angular": "github:angular/bower-angular@^1.4.3"
+    },
+    "devDependencies": {}
+  }
 }

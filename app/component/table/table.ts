@@ -15,3 +15,9 @@ function printColor(color: Color) {
 
 
 printColor(Color.Red);
+
+
+
+export function Table(){
+
+}

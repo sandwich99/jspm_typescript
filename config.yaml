@@ -7,27 +7,27 @@ proxyOptions: &proxyOptions
   target: "http://example.com/endpoint" # 代理服务器的路径
 
 path:
-  output: "temp"
+  output: "./tmp"
   release: "build"
   demo: "app/**/demo*/*"
   scss: "app/**/*.scss"
-  jade: "app/**/*.jade"
-  ts: "app/**/*.ts"
+  jade: "app/**.jade"
+  ts:
+    - "app/*.ts"
+    - "app/**/*.ts"
 
 
 browserSync: &browserSync
-  files:
-    - "public/**"
-    - "source/**"
+  files: "./tmp/**"
+
   watchOptions:
     debounceDelay: 300
   server:
-    baseDir: "./build" # temp 路径
+    baseDir: "./tmp" # tmp 路径
     index: "index.html"
     routes:
       "/config.js": "./config.js"
       "/jspm_packages": "./jspm_packages/"
-      "/source": "./source/"
     middleware: []
   # startPath: "/"
   # host: "127.0.0.1"
