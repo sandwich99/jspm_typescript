@@ -2,8 +2,8 @@
 var
 	gulp = require("gulp"),
 	ts = require("gulp-typescript"),
-	typescript = require("ntypescript"),
-	tsProject = ts.createProject('tsconfig.json', {typescript: typescript}), // typescript 配置
+	typescript = require("typescript"),
+
 	del = require("del"), //删除文件
 	watch = require("gulp-watch"),
 	inject = require("gulp-inject"), //将js css 可以注入到 index.html 等模板中
@@ -26,8 +26,16 @@ var browserSync = require('browser-sync').create();// browser sync
 var jade = require('gulp-jade');
 var argv = require('minimist')(process.argv.slice(2)); // gulp 参数
 var ngAnnotate = require('gulp-ng-annotate'); // angular 注解
-// var cache = require('gulp-cached');
+var cache = require('gulp-cached');
 
+var tank = require('./gulp/tank');
+
+var	tsProject = ts.createProject('tsconfig.json', {
+	typescript: typescript,
+	noEmitOnError: false,
+	declarationFiles: true
+
+	}); // typescript 配置
 
 
 //// 代理到api服务器 配合 browserSync 使用
@@ -53,24 +61,25 @@ gulp.task('default', function () {
 	var tsResult = gulp.src("src/**/*.ts")
 		.pipe(ts(tsProject));
 
-
-
 	return tsResult.js.pipe(gulp.dest("dist"));
 });
 
 /**
  * 模拟服务器
  */
-gulp.task('serve', function(){
+gulp.task('serve', ['build'], function(){
 
 	var proxy = proxyMiddleware(options.route, options.proxyOptions);
 
 	options.browserSync.server.middleware.push(proxy);
 	browserSync.init(options.browserSync);
 
-	gulp.watch(path.scss, ['scss'], browserSync.stream({match: '**/*.css'}));
-	gulp.watch(path.jade, ['jade'], browserSync.reload);
-	gulp.watch(path.js, ['es6'], browserSync.reload);
+	gulp.watch(path.scss, ['sass-dev'])
+		// .on('change', browserSync.stream({match: '**/*.css'}));
+	gulp.watch(path.jade, ['jade'])
+		// .on('change', browserSync.reload);
+	gulp.watch(path.js, ['es6'])
+		.on('change', browserSync.reload);
 })
 
 
@@ -87,33 +96,39 @@ gulp.task('es6', function(){
 
 gulp.task('jade', function(){
 
-	gulp.src(path.jade)
+	return gulp.src(path.jade)
+		.pipe(cache("jade"))
 		.pipe(plumber())
 		.pipe(changed(path.output, {extension: '.html'}))
 		.pipe(jade({pretty: true}))
-		.pipe(gulp.dest(path.output))
+		.pipe(gulp.dest(path.output));
 
 
 })
 
-gulp.task('sass', function(){
+
+
+gulp.task('sass-dev', function(){
 
 	return gulp.src(path.scss)
-		.pipe(changed(path.output, {extension: '.css'}))
+		.pipe(filterNonCodeFiles())
 		.pipe(plumber())
-		.pipe(sass())
+		.pipe(changed(path.output, {extension: '.css'}))
+		.pipe(sass.sync().on('error', sass.logError))
+		.pipe(tank("css"))
+		.pipe(concat("app.css"))
+		.pipe(gulp.dest(path.output));
 
 })
 
 
-gulp.task('clean', function(){
-	return gulp.src([path.output, path.release])
-			.pipe(vinylPaths(del));
+gulp.task('clean', function(done){
+	del([path.output, path.release], done);
 })
 
 
 gulp.task('build', function(done){
-	runSequence(['clean', 'jade', 'es6'], sequenceComplete(done));
+	runSequence('clean', ['jade', 'es6', 'sass-dev'], sequenceComplete(done));
 })
 
 
